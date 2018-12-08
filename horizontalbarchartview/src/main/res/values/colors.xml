@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="amarelo">#00FFFF</color>
-    <color name="blue">#0000FF</color>
-    <color name="red">#FF0000</color>
     <color name="default_bar_color">#F5F5F5</color>
 </resources>

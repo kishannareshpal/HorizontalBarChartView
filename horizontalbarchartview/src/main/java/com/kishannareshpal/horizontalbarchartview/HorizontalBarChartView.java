@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +47,8 @@ public class HorizontalBarChartView extends View {
 
     private float currentPercentage;
 
+    private Context ctx;
+
     private int fullWidth; // the max canvas width.
     private int fullHeight; // the max canvas height.
 
@@ -57,6 +60,7 @@ public class HorizontalBarChartView extends View {
      */
     public HorizontalBarChartView(Context ctx, @Nullable AttributeSet attrs) {
         super(ctx, attrs);
+        this.ctx = ctx;
         init(attrs);
     }
 
@@ -67,7 +71,7 @@ public class HorizontalBarChartView extends View {
             // if custom attributes were set.
             TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.HorizontalBarChartView);
             corner_radius    = ta.getFloat(R.styleable.HorizontalBarChartView_hbcv_cornerRadius, corner_radius);
-            background_color = ta.getColor(R.styleable.HorizontalBarChartView_hbcv_color, getResources().getColor(R.color.default_bar_color));
+            background_color = ta.getColor(R.styleable.HorizontalBarChartView_hbcv_color, ContextCompat.getColor(ctx, R.color.default_bar_color));
             ta.recycle();
         }
 
@@ -80,7 +84,7 @@ public class HorizontalBarChartView extends View {
         dataList = new ArrayList<>();
 
         tb_left_radius  = new float[]{corner_radius, corner_radius, 0, 0, 0, 0, corner_radius, corner_radius}; // Is only round on top-bottom left.
-        flat_radius     = new float[]{corner_radius, corner_radius, 0, 0, 0, 0, 0, 0}; // A flat square. Without rounded corners.
+        flat_radius     = new float[]{0, 0, 0, 0, 0, 0, 0, 0}; // A flat square. Without rounded corners.
         tb_right_radius = new float[]{0, 0, corner_radius, corner_radius, corner_radius, corner_radius, 0, 0}; // Is only round on top-bottom right.
 
         newDrawable = new GradientDrawable(); // the individual detail path.

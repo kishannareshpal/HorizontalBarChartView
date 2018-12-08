@@ -5,7 +5,7 @@ This library allows you to show a set of data over a horizontal bar. Just like t
 
 
 
-![](https://github.com/kishannareshpal/StorageDetailsView/raw/master/screenshot.png)
+![Screenshot](https://github.com/kishannareshpal/StorageDetailsView/raw/master/1.png)
 
 
 
@@ -77,6 +77,8 @@ dependencies {
     android:layout_height="12dp" />
 ```
 
+![Default look](https://github.com/kishannareshpal/StorageDetailsView/raw/master/2.png)
+
 The view by default, will have a grey colored background and round corners. In order to customize it, you can use the attributes listed on the table below:
 
 #### Optional customizations
@@ -110,9 +112,9 @@ The  `addData()` arguments:
 
 - **dataId** - An arbitrary id, so you can query it's information later, such as it's percentage via the `getDataPercentage()` method.
 
-- **percentage** - How much of the bar this data will fill, starting from the last added data. The total percentage of the added data *should not exceed 100%*. E.g: `float 42F | int 42`
+- **percentage** - How much of the bar this data will fill, starting from the last added data. The total percentage of the added data *should not exceed 100%*. E.g: *`float 42F | int 42`.* 
 
-- **colorRes** - the background color of this new detail. E.g: `getResources().getColor(R.color.blue)`;
+- **colorRes** - the background color of this new detail. E.g: *I recommend using these two methods for retrieving the colors: `ContextCompat.getColor(getContext(), R.color.blue)` or `getResources().getColor()`.*
 
 
 :egg:Example:
@@ -123,11 +125,11 @@ HorizontalBarChartView hbcv = findViewById(R.id.hbcv);
 
 // Add the data.
 int percent = 12;
-int color = getResources().getColor(R.color.blue);
+int color = ContextCompat.getColor(getContext(), R.color.blue);
 hbcv.addData(MEDIA_ID, percent, color);
 
 int percent = 35;
-int color = getResources().getColor(R.color.green);
+int color = ContextCompat.getColor(getContext(), R.color.green);
 hbcv.addData(APPS_ID, percent, color);
 
 ...
@@ -135,7 +137,9 @@ hbcv.addData(APPS_ID, percent, color);
 sdv.show();
 ```
 
-![](/Users/kishan/AndroidStudioProjects/StorageDetailsView/images/2.png)
+![Screenshot 2](https://github.com/kishannareshpal/StorageDetailsView/raw/master/3.png)
+
+
 
 ##### 2. Getter methods
 
