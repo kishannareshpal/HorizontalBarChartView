@@ -5,7 +5,7 @@ This library allows you to show a set of data over a horizontal bar. Just like t
 
 
 
-![Screenshot](https://github.com/kishannareshpal/StorageDetailsView/raw/master/1.png)
+![Screenshot](https://raw.githubusercontent.com/kishannareshpal/HorizontalBarChartView/master/1.png)
 
 
 
@@ -77,9 +77,9 @@ dependencies {
     android:layout_height="12dp" />
 ```
 
-![Default look](https://github.com/kishannareshpal/StorageDetailsView/raw/master/2.png)
+![Default look](https://raw.githubusercontent.com/kishannareshpal/HorizontalBarChartView/master/2.png)
 
-The view by default, will have a grey colored background and round corners. In order to customize it, you can use the attributes listed on the table below:
+The view by default, will have a grey colored background and round corners, as seen above. In order to customize it, you can use the attributes listed on the table below:
 
 #### Optional customizations
 
@@ -137,7 +137,7 @@ hbcv.addData(APPS_ID, percent, color);
 sdv.show();
 ```
 
-![Screenshot 2](https://github.com/kishannareshpal/StorageDetailsView/raw/master/3.png)
+![Screenshot 2](https://raw.githubusercontent.com/kishannareshpal/HorizontalBarChartView/master/3.png)
 
 
 
