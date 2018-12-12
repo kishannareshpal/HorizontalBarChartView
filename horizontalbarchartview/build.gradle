@@ -1,4 +1,19 @@
+apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
+
+publish {
+    def groupProjectID = 'com.kishannareshpal'
+    def artifactProjectID = 'horizontalbarchartview'
+    def publishVersionID = '1.0.2'
+
+    userOrg = 'kishannareshpal'
+    repoName = 'maven'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'This library allows you to show a set of data over a horizontal bar. You can use this for example, when showing the storage usage of a device.'
+    website = 'https://github.com/kishannareshpal/HorizontalBarChartView'
+}
 
 android {
     compileSdkVersion 28
@@ -6,7 +21,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "v1.0.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -17,12 +32,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.android.support:support-compat:28.0.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

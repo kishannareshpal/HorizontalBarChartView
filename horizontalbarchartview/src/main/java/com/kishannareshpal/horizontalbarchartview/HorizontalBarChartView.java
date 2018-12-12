@@ -22,7 +22,7 @@ import java.util.List;
 
 
 /**
- * Common class for storage detail view implementations
+ * Common class for storage data view implementations
  * Info: To illustrate how much storage the device has used or has left, relative to the device's storage size. For my Exames App.
  * I thought of open sourcing this, bc why not?!
  *
@@ -87,7 +87,7 @@ public class HorizontalBarChartView extends View {
         flat_radius     = new float[]{0, 0, 0, 0, 0, 0, 0, 0}; // A flat square. Without rounded corners.
         tb_right_radius = new float[]{0, 0, corner_radius, corner_radius, corner_radius, corner_radius, 0, 0}; // Is only round on top-bottom right.
 
-        newDrawable = new GradientDrawable(); // the individual detail path.
+        newDrawable = new GradientDrawable(); // the individual data rectangle.
         newDrawable.setShape(GradientDrawable.RECTANGLE);
 
         invalidate();
@@ -104,10 +104,11 @@ public class HorizontalBarChartView extends View {
     /**
      * To add the data on top of the main bar.
      *
-     * @param newPercentage int must not exceed 100.
-     * @param newColorRes new detail background color. E.g: getResource.getColor(colorRes);
+     * @param newDataId
+     * @param newPercentage
+     * @param newColorRes
      */
-    public void addData(int newDetailId, float newPercentage, int newColorRes){
+    public void addData(int newDataId, float newPercentage, int newColorRes){
 
         if (currentPercentage >= 100F || newPercentage > 100F){
             Log.e("HorizontalBarCV_ERR", "Current total percentage " + currentPercentage + " exceeded 100.\nDid not add new data.");
@@ -115,7 +116,7 @@ public class HorizontalBarChartView extends View {
         }
 
         // Add it to the list of new data.
-        Data data = new Data(newDetailId, newColorRes, (int) newPercentage);
+        Data data = new Data(newDataId, newColorRes, (int) newPercentage);
         dataList.add(data);
     }
 
@@ -132,13 +133,14 @@ public class HorizontalBarChartView extends View {
      * Get a data's percentage that has been already set, using it's id.
      * Note: this may return 0 if called before the .show() method.
      *
-     * @return -404, if no data of the given id was found.
+     * @param dataId
+     * @return
      */
-    public float getDataPercentage(int detailId){
+    public float getDataPercentage(int dataId){
         float percentage = -404;
 
         for (Data data : dataList) {
-            if (data.getId() == detailId) {
+            if (data.getId() == dataId) {
                 percentage = data.getPercentage();
             }
         }
@@ -151,7 +153,7 @@ public class HorizontalBarChartView extends View {
      * Get a list of all of the data set.
      * Note: this may return 0 if called before the .show() method.
      *
-     * @return List<MyData>, which each, contains an ID and a PERCENTAGE.
+     * @return List of MyData.class, which each, contains an ID and a PERCENTAGE.
      */
     public List<MyData> getAllData(){
         List<MyData> mydataList = new ArrayList<>();
@@ -219,7 +221,7 @@ public class HorizontalBarChartView extends View {
             }
 
             if ((int) currentWidth <= fullWidth){
-                newDrawable.setColor(data.getColor());
+                newDrawable.setColor(ContextCompat.getColor(ctx, data.getColor()));
                 newDrawable.setBounds(bounds);
                 newDrawable.draw(canvas);
                 canvas.translate(newWidth - corner_radius, 0);
