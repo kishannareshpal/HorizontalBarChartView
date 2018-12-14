@@ -1,7 +1,7 @@
 # HorizontalBarChartView
 This library allows you to show a set of data over a horizontal bar. Just like the ones you see for example, in a device's Storage Usage.
 
-[![](https://jitpack.io/v/kishannareshpal/StorageDetailsView.svg)](https://jitpack.io/#kishannareshpal/StorageDetailsView) [![API 14](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6befaa33fa6c465a9be7591cbe162257)](https://app.codacy.com/app/kishannareshpal/StorageDetailsView?utm_source=github.com&utm_medium=referral&utm_content=kishannareshpal/StorageDetailsView&utm_campaign=Badge_Grade_Dashboard)
+[![API 14](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)[![Download](https://api.bintray.com/packages/kishannareshpal/maven/horizontalbarchartview/images/download.svg)](https://bintray.com/kishannareshpal/maven/horizontalbarchartview/_latestVersion)
 
 
 
@@ -11,27 +11,16 @@ This library allows you to show a set of data over a horizontal bar. Just like t
 
 ## Setup
 
-To begin using **HorizontalBarChartView** in your projects please follow the steps below for either *Gradle* or *Maven*.
+To begin using **HorizontalBarChartView** in your projects just add the dependecy via *Gradle* or *Maven*.
 
 ##### a) Gradle
 
-1. Open `build.gradle` file for your application and add this to the end of **repositories { ... }** section:
-
-```groovy
-allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-
-2. Add the library to the **dependencies { ... }** section of your **app** level `build.gradle` file:
+1. Add the library to the **dependencies { ... }** section of your **app** level `build.gradle` file:
 
 ```groovy
 dependencies {
     // ...
-    implementation 'com.github.kishannareshpal:HorizontalBarChartView:0.1.0'
+    implementation 'com.kishannareshpal:HorizontalBarChartView:1.0.4'
     // ...
 }
 ```
@@ -40,26 +29,17 @@ dependencies {
 
 ##### b) Maven
 
-1. Add the repository to your `build.gradle` file:
-
-   ```xml
-   <repositories>
-       <repository>
-           <id>jitpack.io</id>
-           <url>https://jitpack.io</url>
-       </repository>
-   </repositories>
-   ```
-
-2. Add the library as a dependency to your **app** level `build.gradle` file:
+1. Add the library as a dependency to your **app** level `build.gradle` file:
 
    ```xml
    <dependency>
-       <groupId>com.github.kishannareshpal</groupId>
-       <artifactId>HorizontalBarChartView</artifactId>
-       <version>0.1.0</version>
+     <groupId>com.kishannareshpal</groupId>
+     <artifactId>horizontalbarchartview</artifactId>
+     <version>1.0.4</version>
+     <type>pom</type>
    </dependency>
    ```
+
 
 
 
@@ -71,7 +51,7 @@ dependencies {
 **HorizontalBarChartView** can be implemented as a custom view to any **layout**. For more detailed code example to use the library, please refer to the sample [`/app`](https://github.com/kishannareshpal/StorageDetailsView/tree/master/app) .
 
 ```xml
-<horizontalbarchartview.StorageDetailsView
+<com.kishannareshpal.horizontalbarchartview.StorageDetailsView
 	android:id="@+id/myChart"
 	android:layout_width="match_parent"
     android:layout_height="12dp" />
@@ -79,14 +59,14 @@ dependencies {
 
 ![Default look](https://raw.githubusercontent.com/kishannareshpal/HorizontalBarChartView/master/2.png)
 
-The view by default, will have a grey colored background and round corners, as seen above. In order to customize it, you can use the attributes listed on the table below:
+By default, it will have a grey colored background with rounded corners, as seen above. In order to customize it, you can use the xml attributes listed on the table below:
 
 #### Optional customizations
 
-| Name             | Type  | Description                                                  |
-| :--------------- | :---- | ------------------------------------------------------------ |
-| sdv_color        | color | allows you to specify the default bar color. **Default value: #F5F5F5 **(Very light grey) |
-| sdv_cornerRadius | float | allows you to specify the radius of all four corners. **Default value: 14F** |
+| Name              | Type  | Description                                                  |
+| :---------------- | :---- | ------------------------------------------------------------ |
+| hbcv_color        | color | allows you to specify the default bar color. **Default value: #F5F5F5 **(Very light grey) |
+| hbcv_cornerRadius | float | allows you to specify the radius of all four corners. **Default value: 14F** |
 
 
 
@@ -96,25 +76,36 @@ The view by default, will have a grey colored background and round corners, as s
 
 **1. Add new data over the bar**
 
-```java
-// Add data...
-void addData(int dataId, float percentage, int colorRes);
+In order to add a new data, use the `addData()` method to add as much as you want (but the *percentage* argument should not exceed a total of 100.0). Once you've done adding the data, call the `show()` method to update the chart with the new data.
 
-// Then call .show() at the end, to update your bar with new data:
+```java
+void addData(int dataId, float percentage, int colorRes);
+/* Arguments;
+	• dataId – An arbitrary id, so you can query it's information later, such as it's percentage via the 'getDataPercentage()' method.
+	• percentage – How much of the bar this data will fill, starting from the last added data. (Tip: In order to get the percentage you may use the function provided after this). For example: 42F. 
+	• colorRes – reference for the background color of this new detail.  For example: R.color.blue.
+*/
+
+// Finally ...
 void show();
 ```
 
-Data are the visual representation that fills up the bar on however percentage you set between 0 and 100%.
+**Tip:** You may use this function to determine the percentage for your values:
 
-In order to add a new data, use the `addData()` method to add as much as you want (but the *percentage* argument should not exceed a total of 100%). Once you've done adding the data, call the `show()` method to update the chart with the new data..
+```java
+// This will calculate the percentage for yourValue over the maxValue.
+private float toPercentage(long yourValue, long maxValue){
+    return yourValue * 100F / maxValue;
+}
 
-The  `addData()` arguments:
+/**
+Usage: 
+	float perc = toPercentage(20, 100);
+	// perc = 20.0
+*/
 
-- **dataId** - An arbitrary id, so you can query it's information later, such as it's percentage via the `getDataPercentage()` method.
+```
 
-- **percentage** - How much of the bar this data will fill, starting from the last added data. The total percentage of the added data *should not exceed 100%*. E.g: *`float 42F | int 42`.* 
-
-- **colorRes** - the background color of this new detail. E.g: *I recommend using these two methods for retrieving the colors: `ContextCompat.getColor(getContext(), R.color.blue)` or `getResources().getColor()`.*
 
 
 :egg:Example:
@@ -125,14 +116,13 @@ HorizontalBarChartView hbcv = findViewById(R.id.hbcv);
 
 // Add the data.
 int percent = 12;
-int color = ContextCompat.getColor(getContext(), R.color.blue);
+int color = R.color.blue;
 hbcv.addData(MEDIA_ID, percent, color);
 
 int percent = 35;
-int color = ContextCompat.getColor(getContext(), R.color.green);
+int color = R.color.green;
 hbcv.addData(APPS_ID, percent, color);
 
-...
 // And finally call the .show() to update the bar.
 sdv.show();
 ```
@@ -148,14 +138,14 @@ sdv.show();
 float getDataPercentage(int dataId);
 
 // Returns the list of all added data.
-// MyData.class contains `int ID` and `float PERCENTAGE`.
+// MyData :: provides `int getId()` and `float getPercentage()`
 List<MyData> getAllData();
 ```
 
 :egg:Example:
 
 ```java
-// ... based of the last example, and continuing from it ...
+// ... based of the last example. Continuing from it ...
 
 // to get the APPS_ID percentage:
 float apps_percentage = hbcv.getDataPercentage(APPS_ID);
@@ -189,3 +179,26 @@ for(MyData myData: myDataList){
 */
 ```
 
+
+
+## Licence
+
+```html
+Copyright 2017 Kishan Nareshpal Jadav
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+
+
+### 
