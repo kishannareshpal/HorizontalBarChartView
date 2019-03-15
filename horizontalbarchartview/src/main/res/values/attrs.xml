@@ -6,4 +6,9 @@
         <attr name="hbcv_cornerRadius" format="float" />
     </declare-styleable>
 
+    <declare-styleable name="ChartIndicator">
+        <attr name="indicatorColor" format="color"/>
+        <attr name="cornerRadius" format="dimension"/>
+    </declare-styleable>
+
 </resources>

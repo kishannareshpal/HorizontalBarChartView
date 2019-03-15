@@ -20,7 +20,7 @@ To begin using **HorizontalBarChartView** in your projects just add the dependec
 ```groovy
 dependencies {
     // ...
-    implementation 'com.kishannareshpal:HorizontalBarChartView:1.0.4'
+    implementation 'com.kishannareshpal:horizontalbarchartview:1.0.4'
     // ...
 }
 ```
